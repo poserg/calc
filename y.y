@@ -79,7 +79,8 @@ int yyerror (const char *s)
 	return 0;
 }
 
-int start(){
+int start()
+{
 	printf (">> ");
 	return 0;
 }
