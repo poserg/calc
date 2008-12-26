@@ -3,6 +3,7 @@
 #include "lex.yy.c"
 #define YYSTYPE double
 //#define YYERROR_VERBOSE
+extern FILE *stderr;
 double answer = 0;
 int flag = 1;
 %}
@@ -74,7 +75,7 @@ int main()
 
 int yyerror (const char *s)
 {
-	printf ("ERROR: %s\n", s);
+	fprintf (stderr, "ERROR: %s\n", s);
 	return 0;
 }
 
