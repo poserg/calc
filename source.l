@@ -2,6 +2,7 @@
 #include <stdlib.h>
 extern double yylval;
 %}
+
 DIGIT		[0-9]+
 NUM		{DIGIT}?\.?{DIGIT}?
 SPACE		[' '\t]
@@ -9,6 +10,7 @@ QUIT		^{SPACE}*[Qq][Uu][Ii][Tt]$
 ANS		[Aa][Nn][Ss]
 LETTER 		[A-z]
 OPERATOR 	[-\+\*\/]
+
 %%
 {NUM} {
 	yylval = atof (yytext);
