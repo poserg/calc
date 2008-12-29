@@ -65,11 +65,12 @@ OPERATOR 	[-\+\*\/]
 	return '\n';
 }
 
-{NUM}*{LETTER}+ {
+{NUM}*{OPERATOR}?{LETTER}+{OPERATOR}? {
 	return ERR;
 }
 
 .|\n
+
 %%
 int yywrap(){
 	return 1;

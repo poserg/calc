@@ -9,7 +9,8 @@ int flag = 1;
 %}
 %start input
 %token NUM QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR
-%left '+' '-'
+%l
+eft '+' '-'
 %left '*' '/'
 %%
 input	: /*	*/
@@ -23,7 +24,7 @@ input	: /*	*/
 	| input OPER_ERR 
 	{ yyerror ("operator > 1!"); }
 	| input FIRST_ERR
-	{ yyerror ("only \"-\" was first"); }
+	{ yyerror ("first is not \"-\""); }
 	| input END_ERR  
 	{ yyerror ("end - not operator"); }
 	| input expr '\n'
@@ -51,7 +52,14 @@ expr	: expr '+' expr
 	| expr '*' expr
 	{ $$ = $1*$3; }
 	| expr '/' expr
-	{ $$ = $1/$3; }
+	{
+		if ($3){
+			$$ = $1/$3; 
+		} else { 
+			yyerror ("div on 0\n");
+			flag = 0;
+		}
+	}
 	| '-' expr %prec '*'
 	{ $$ = -$2;}
 	| '(' expr ')'
