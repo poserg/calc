@@ -1,12 +1,17 @@
 %{
 #include <stdio.h>
+#define YYSTYPE double 
 #include "lex.yy.c"
-#define YYSTYPE double
 //#define YYERROR_VERBOSE
 extern FILE *stderr;
 double answer = 0;
 int flag = 1;
 %}
+%defines
+%union {
+	int intval;
+	double val;
+}
 %start input
 %token NUM QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR
 %left '+' '-'
