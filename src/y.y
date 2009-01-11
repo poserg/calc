@@ -9,8 +9,7 @@ int flag = 1;
 %}
 %start input
 %token NUM QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR
-%l
-eft '+' '-'
+%left '+' '-'
 %left '*' '/'
 %%
 input	: /*	*/
