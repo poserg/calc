@@ -1,9 +1,9 @@
 PROGRAM_NAME := calc
-SOURCE_DIRS := src bin
+SOURCE_DIRS := src 
 
 SOURCE_DIRS := $(addprefix ../, $(SOURCE_DIRS))
 
-$(PROGRAM_NAME) : y.tab.o
+$(PROGRAM_NAME) : y.tab.o 
 	cc $^ -o $@
 
 VPATH = $(SOURCE_DIRS)
@@ -25,4 +25,4 @@ yout : y.y
 .PHONY : clear
 
 clear :
-	rm -f *.*.c *.d *.o $(PROGRAM_NAME) *.output
+	rm -f *.*.c *.d *.o *.h $(PROGRAM_NAME) *.output

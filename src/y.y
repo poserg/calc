@@ -1,6 +1,5 @@
 %{
 #include <stdio.h>
-#define YYSTYPE double 
 #include "lex.yy.c"
 //#define YYERROR_VERBOSE
 extern FILE *stderr;
@@ -9,13 +8,14 @@ int flag = 1;
 %}
 %defines
 %union {
-	int intval;
-	double val;
+	double dval;
 }
 %start input
-%token NUM QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR
+%token  <dval> NUM 
+%token QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR
 %left '+' '-'
 %left '*' '/'
+%type <dval> expr
 %%
 input	: /*	*/
 	| input '\n'
