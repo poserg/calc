@@ -1,28 +1,29 @@
 PROGRAM_NAME := calc
-SOURCE_DIRS := src 
+SOURCE_DIRS := src bin
 
 SOURCE_DIRS := $(addprefix ../, $(SOURCE_DIRS))
+SOURCE := $(addsuffix /$(SOURCE), $(SORCE_DIRS))
 
-$(PROGRAM_NAME) : y.tab.o 
-	cc $^ -o $@
+$(PROGRAM_NAME) : source.c y.c main.o 
+	cc main.o -o $@
 
 VPATH = $(SOURCE_DIRS)
 
+%.c : %.y
+	bison -o $@ $<
+
+%.c : %.l
+	flex -o $@ $<
+
 %.o : %.c 
-	cc -c -MD $<
-
-y.tab.c : y.y
-	bison $<
-
-lex.yy.c : source.l
-	flex $<
+	cc -c -MMD $(addprefix -I, $(SOURCE_DIRS)) $<
 
 include $(wildcard *.d)
+
+.PHONY : clear yout
 
 yout : y.y
 	bison -v $< 
 
-.PHONY : clear
-
 clear :
-	rm -f *.*.c *.d *.o *.h $(PROGRAM_NAME) *.output
+	rm -f *.d *.o source.c y.c $(PROGRAM_NAME) *.output

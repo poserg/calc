@@ -1,6 +1,6 @@
 %{
 #include <stdlib.h>
-#include "y.tab.h" 
+extern double yylval;
 %}
 
 DIGIT		[0-9]+
@@ -13,7 +13,7 @@ OPERATOR 	[-\+\*\/]
 
 %%
 {NUM} {
-	yylval.dval  = atof (yytext);
+	yylval  = atof (yytext);
 	return NUM;
 }
 

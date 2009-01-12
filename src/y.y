@@ -1,21 +1,17 @@
 %{
 #include <stdio.h>
 #include "source.c"
+#define YYSTYPE double
 //#define YYERROR_VERBOSE
 extern FILE *stderr;
 double answer = 0;
 int flag = 1;
 %}
-%defines
-%union {
-	double dval;
-}
 %start input
-%token  <dval> NUM 
+%token  NUM 
 %token QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR
 %left '+' '-'
 %left '*' '/'
-%type <dval> expr
 %%
 input	: /*	*/
 	| input '\n'
