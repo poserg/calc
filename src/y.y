@@ -1,6 +1,6 @@
 %{
 #include <stdio.h>
-#include "lex.yy.c"
+#include "source.c"
 //#define YYERROR_VERBOSE
 extern FILE *stderr;
 double answer = 0;
