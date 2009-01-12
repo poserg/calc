@@ -1,10 +1,12 @@
 PROGRAM_NAME := calc
 SOURCE_DIRS := src bin
+SOURCE := *.y *.l *.c
 
 SOURCE_DIRS := $(addprefix ../, $(SOURCE_DIRS))
-SOURCE := $(addsuffix /$(SOURCE), $(SORCE_DIRS))
+SOURCE := $(foreach DIR, $(SOURCE_DIRS), $(addprefix $(DIR)/, $(SOURCE)))
+OBJECTS := $(addsuffix .o, $(basename $(wildcard $(SOURCE)))) 
 
-$(PROGRAM_NAME) : $(patsubst %.c, %.o, $(wildcard *.c)) 
+$(PROGRAM_NAME) : $(notdir $(OBJECTS) )
 	gcc $^ -o $@
 
 VPATH = $(SOURCE_DIRS)
@@ -20,10 +22,10 @@ VPATH = $(SOURCE_DIRS)
 
 include $(wildcard *.d)
 
-.PHONY : clear yout
+.PHONY : clean yout
 
 yout : y.y
 	bison -v $< 
 
-clear :
-	rm -f *.d *.o source.c y.c $(PROGRAM_NAME) *.output
+clean :
+	rm -f *.d *.o source.c y.c y.h $(PROGRAM_NAME) *.output
