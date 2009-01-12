@@ -4,19 +4,19 @@ SOURCE_DIRS := src bin
 SOURCE_DIRS := $(addprefix ../, $(SOURCE_DIRS))
 SOURCE := $(addsuffix /$(SOURCE), $(SORCE_DIRS))
 
-$(PROGRAM_NAME) : source.c y.c main.o 
-	cc main.o -o $@
+$(PROGRAM_NAME) : $(patsubst %.c, %.o, $(wildcard *.c)) 
+	gcc $^ -o $@
 
 VPATH = $(SOURCE_DIRS)
 
 %.c : %.y
-	bison -o $@ $<
+	bison -d -o $@ $<
 
 %.c : %.l
 	flex -o $@ $<
 
 %.o : %.c 
-	cc -c -MMD $(addprefix -I, $(SOURCE_DIRS)) $<
+	gcc -c -MMD $(addprefix -I, $(SOURCE_DIRS)) $<
 
 include $(wildcard *.d)
 

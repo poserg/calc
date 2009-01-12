@@ -1,17 +1,19 @@
 %{
-#include <stdio.h>
-#include "source.c"
-#define YYSTYPE double
+#include "main.h"
 //#define YYERROR_VERBOSE
 extern FILE *stderr;
 double answer = 0;
 int flag = 1;
 %}
 %start input
-%token  NUM 
+%token <dval>  NUM 
 %token QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR
 %left '+' '-'
 %left '*' '/'
+%type <dval> expr
+%union {
+	double dval;
+}
 %%
 input	: /*	*/
 	| input '\n'
@@ -75,3 +77,8 @@ expr	: expr '+' expr
 	| NUM
 	;
 %%
+extern int yyerror (const char *s)
+{
+	fprintf (stderr, "ERROR: %s\n", s);
+	return 0;
+}
