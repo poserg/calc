@@ -1,5 +1,5 @@
 #include "main.h"
-extern int main()
+int main()
 {
 	start();
 	return yyparse();

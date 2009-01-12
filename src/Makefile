@@ -6,7 +6,7 @@ SOURCE_DIRS := $(addprefix ../, $(SOURCE_DIRS))
 SOURCE := $(foreach DIR, $(SOURCE_DIRS), $(addprefix $(DIR)/, $(SOURCE)))
 OBJECTS := $(addsuffix .o, $(basename $(wildcard $(SOURCE)))) 
 
-$(PROGRAM_NAME) : $(notdir $(OBJECTS) )
+$(PROGRAM_NAME) : $(notdir $(OBJECTS))
 	gcc $^ -o $@
 
 VPATH = $(SOURCE_DIRS)
@@ -18,9 +18,7 @@ VPATH = $(SOURCE_DIRS)
 	flex -o $@ $<
 
 %.o : %.c 
-	gcc -c -MMD $(addprefix -I, $(SOURCE_DIRS)) $<
-
-include $(wildcard *.d)
+	gcc -c $(addprefix -I, $(SOURCE_DIRS)) $<
 
 .PHONY : clean yout
 
