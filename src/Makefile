@@ -11,14 +11,16 @@ $(PROGRAM_NAME) : $(notdir $(OBJECTS))
 
 VPATH = $(SOURCE_DIRS)
 
-%.c : %.y
+%.h %.c : %.y
 	bison -d -o $@ $<
 
 %.c : %.l
 	flex -o $@ $<
 
 %.o : %.c 
-	gcc -c $(addprefix -I, $(SOURCE_DIRS)) $<
+	gcc -c -MMD $(addprefix -I, $(SOURCE_DIRS)) $<
+
+include $(wildcard *.d)
 
 .PHONY : clean yout
 
