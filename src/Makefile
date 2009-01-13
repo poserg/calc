@@ -13,10 +13,7 @@ $(PROGRAM_NAME) : $(notdir $(OBJECTS))
 
 VPATH = $(SOURCE_DIRS)
 
-.PHONY : clean yout all
-
-yout : y.y
-	bison -v $< 
+.PHONY : clean all
 
 clean :
 	rm -f *.d $(OBJECTS) source.c y.c y.tab.h $(PROGRAM_NAME) *.output
