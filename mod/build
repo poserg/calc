@@ -1,0 +1,3 @@
+mkdir -p bin
+make 	-C bin \
+	-f ../src/Makefile
