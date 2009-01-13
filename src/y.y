@@ -5,6 +5,7 @@ extern FILE *stderr;
 double answer = 0;
 int flag = 1;
 %}
+%defines
 %start input
 %token <dval>  NUM 
 %token QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR
