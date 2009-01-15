@@ -1,17 +1,21 @@
-PROGRAM_NAME := calc
+PROGRAM_NAME = ../$(BIN_DIR)/calc
 HOME_DIRS := src
-SOURCE_DIRS := src bin
-SOURCE := *.y *.l *.c
+SOURCE_DIRS := src dbuild
+BIN_DIR := bin
+DDIR = dbuild
+SOURCE := y.y source.l main.c
 CFLAGS = -MMD $(addprefix -I, $(SOURCE_DIRS))
 
 SOURCE_DIRS := $(addprefix ../, $(SOURCE_DIRS))
 SOURCE := $(addprefix ../$(HOME_DIRS)/, $(SOURCE))
-OBJECTS := $(addsuffix .o, $(basename $(wildcard $(SOURCE))))
+OBJECTS := $(notdir $(addsuffix .o, $(basename $(SOURCE))))
 
-$(PROGRAM_NAME) : $(notdir $(OBJECTS))
-	$(CC) $^ -o $@
+$(PROGRAM_NAME) : $(OBJECTS)
+	$(CC) $^ -o $@ 
 
 VPATH = $(SOURCE_DIRS)
+
+.SECONDARY : $(OBJECTS:.o=.c)
 
 .PHONY : clean all
 
