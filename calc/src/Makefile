@@ -1,8 +1,10 @@
-PROGRAM_NAME := calc
-DDIR = .
-CFLAGS = -MMD $(addprefix -I, $(DDIR))
+CFLAGS = -MMD $(addprefix -I, $(DDIR) .)
 SOURCE := y.y source.l main.c
 OBJ = $(addprefix $(DDIR)/, $(addsuffix .o, $(basename $(notdir $(SOURCE)))))
+ifeq (0, $(MAKELEVEL))
+PROGRAM_NAME := calc
+DDIR = .
+endif
 
 all : $(PROGRAM_NAME)
 
@@ -26,6 +28,6 @@ $(DDIR)/%.c : %.l
 .PHONY : all clean
 
 clean :
-	$(RM)  $(DDIR)/$(filter-out $(SOURCE) main.h, *.*) calc ../bin/*
+	$(RM) *.d *.o y.h y.c source.c calc
 
 -include $(DDIR)/*.d
