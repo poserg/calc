@@ -1,10 +1,8 @@
 PROGRAM_NAME := calc
-CFLAGS = -MMD $(addprefix -I, $(SOURCE_DIRS))
-DDIR = ../dbuild
-SOURCE_DIRS := ../src $(DDIR) 
+DDIR = .
+CFLAGS = -MMD $(addprefix -I, $(DDIR))
 SOURCE := y.y source.l main.c
 OBJ = $(addprefix $(DDIR)/, $(addsuffix .o, $(basename $(notdir $(SOURCE)))))
-PROGRAM_NAME := ../bin/$(PROGRAM_NAME)
 
 all : $(PROGRAM_NAME)
 
@@ -28,6 +26,6 @@ $(DDIR)/%.c : %.l
 .PHONY : all clean
 
 clean :
-	$(RM)  $(DDIR)/* ../bin/*
+	$(RM)  $(DDIR)/$(filter-out $(SOURCE) main.h, *.*) calc ../bin/*
 
 -include $(DDIR)/*.d
