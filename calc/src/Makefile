@@ -1,31 +1,33 @@
 PROGRAM_NAME := calc
-SOURCE_DIRS := src bin
-SOURCE := *.y *.l *.c
+CFLAGS = -MMD $(addprefix -I, $(SOURCE_DIRS))
+DDIR = ../dbuild
+SOURCE_DIRS := ../src $(DDIR) 
+SOURCE := y.y source.l main.c
+OBJ = $(addprefix $(DDIR)/, $(addsuffix .o, $(basename $(notdir $(SOURCE)))))
+PROGRAM_NAME := ../bin/$(PROGRAM_NAME)
 
-SOURCE_DIRS := $(addprefix ../, $(SOURCE_DIRS))
-SOURCE := $(foreach DIR, $(SOURCE_DIRS), $(addprefix $(DIR)/, $(SOURCE)))
-OBJECTS := $(addsuffix .o, $(basename $(wildcard $(SOURCE)))) 
+all : $(PROGRAM_NAME)
 
-$(PROGRAM_NAME) : $(notdir $(OBJECTS))
-	gcc $^ -o $@
+$(PROGRAM_NAME) : $(OBJ)
+	$(CC) $^ -o $@
 
-VPATH = $(SOURCE_DIRS)
+%.o : %.c
+	$(CC) -c $(CFLAGS) -o $@ $<
 
-%.h %.c : %.y
-	bison -d -o $@ $<
+$(DDIR)/%.o : %.c 
+	$(CC) -c $(CFLAGS) -o $@ $<
 
-%.c : %.l
-	flex -o $@ $<
+$(DDIR)/%.c $(DDIR)/%.h: %.y
+	$(YACC) -o $@ $<
 
-%.o : %.c 
-	gcc -c -MMD $(addprefix -I, $(SOURCE_DIRS)) $<
+$(DDIR)/%.c : %.l
+	$(LEX) -o $@ $< 
 
-include $(wildcard *.d)
+.SECONDARY : $(OBJ:.o=.c)
 
-.PHONY : clean yout
-
-yout : y.y
-	bison -v $< 
+.PHONY : all clean
 
 clean :
-	rm -f *.d *.o source.c y.c y.h $(PROGRAM_NAME) *.output
+	$(RM)  $(DDIR)/* ../bin/*
+
+-include $(DDIR)/*.d
