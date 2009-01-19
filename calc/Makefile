@@ -10,3 +10,5 @@ all :
 	$(MAKE) -C $(SRCDIR)
 clean :
 	$(RM) -r $(DIR) 
+
+.PHONY : all clean
