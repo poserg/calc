@@ -1,4 +1,5 @@
 CFLAGS = -MMD -I$(SRCDIR) -I.
+LOADLIBES = -lm
 SRCDIR = ../src
 SRC = y.y source.l main.c
 SRC := $(addprefix $(SRCDIR)/, $(SRC))
@@ -10,7 +11,7 @@ endif
 all: $(PROGRAM_NAME)
 
 $(PROGRAM_NAME) : $(OBJ)
-	$(CC) -o $@ $^
+	$(CC) -o $@ $^ $(LOADLIBES)
 
 VPATH = $(SRCDIR)
 

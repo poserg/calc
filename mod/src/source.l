@@ -7,8 +7,15 @@ NUM		{DIGIT}?\.?{DIGIT}?
 SPACE		[' '\t]
 QUIT		^{SPACE}*[Qq][Uu][Ii][Tt]$
 ANS		[Aa][Nn][Ss]
+SIN             [Ss][Ii][Nn]
+COS             [Cc][Oo][Ss]
+TAN             [Tt][Aa][Nn]
+EXP             [Ee][Xx][Pp]
+ASIN            [Aa]{SIN}
+ACOS            [Aa]{COS}
+ATAN            [Aa]{TAN}
 LETTER 		[A-z]
-OPERATOR 	[-\+\*\/]
+OPERATOR 	[-\+\*\/\^]
 
 %%
 {NUM} {
@@ -48,6 +55,10 @@ OPERATOR 	[-\+\*\/]
 	return '/';
 }
 
+\^ {
+        return '^';
+}
+
 \( {
 	return '(';
 }
@@ -60,12 +71,36 @@ OPERATOR 	[-\+\*\/]
 	return QUIT;
 }
 
-\n {
-	return '\n';
+{SIN} {
+    return SIN;
 }
 
-{NUM}*{OPERATOR}?{LETTER}+{OPERATOR}? {
-	return ERR;
+{COS} {
+    return COS;
+}
+
+{TAN} {
+    return TAN;
+}
+
+{EXP} {
+    return EXP;
+}
+
+{ASIN} {
+    return ASIN;
+}
+
+{ACOS} {
+    return ACOS;
+}
+
+{ATAN} {
+    return ATAN;
+}
+
+\n {
+	return '\n';
 }
 
 .|\n

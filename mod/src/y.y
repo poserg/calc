@@ -8,9 +8,11 @@ int flag = 1;
 %defines
 %start input
 %token <dval>  NUM 
-%token QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR
+%token QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR SIN COS TAN EXP ASIN ACOS ATAN
 %left '+' '-'
 %left '*' '/'
+%right '^'
+%left SIN COS TAN
 %type <dval> expr
 %union {
 	double dval;
@@ -34,7 +36,7 @@ input	: /*	*/
 	{
 		if (flag) {
 			answer = $2;
-			printf ("\tans = %.4f\n", $2);
+			printf ("\tans = %.4g\n", $2);
 		}
 		start();
 		flag = 1;
@@ -67,12 +69,22 @@ expr	: expr '+' expr
 	{ $$ = -$2;}
 	| '(' expr ')'
 	{ $$ = $2; }
-	| expr '(' expr ')'
-	{ $$ = $1*$3; }
-	| '(' expr ')' expr
-	{ $$ = $2*$4; }
-	| expr '(' expr ')' expr
-	{ $$ = $1*$3*$5; }
+        | expr '^' expr
+        { $$ = pow ($1, $3); }
+        | SIN expr
+        { $$ = sin ($2); }
+        | COS expr
+        { $$ = cos ($2); }
+        | TAN expr
+        { $$ = tan ($2); }
+        | EXP expr
+        { $$ = exp($2); }
+        | ASIN expr
+        { $$ = asin ($2); }
+        | ACOS expr
+        { $$ = acos ($2); }
+        | ATAN expr
+        { $$ = atan ($2); }
 	| ANS
 	{ $$ = answer; }
 	| NUM
