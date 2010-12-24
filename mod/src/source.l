@@ -16,7 +16,6 @@ ACOS            [Aa]{COS}
 ATAN            [Aa]{TAN}
 LETTER 		[A-z]
 OPERATOR 	[-\+\*\/\^]
-
 %%
 {NUM} {
 	yylval.dval  = atof (yytext);
@@ -104,7 +103,6 @@ OPERATOR 	[-\+\*\/\^]
 }
 
 .|\n
-
 %%
 int yywrap(){
 	return 1;

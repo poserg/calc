@@ -8,7 +8,8 @@ int flag = 1;
 %defines
 %start input
 %token <dval>  NUM 
-%token QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR SIN COS TAN EXP ASIN ACOS ATAN
+%token QUIT ERR OPER_ERR ANS FIRST_ERR END_ERR 
+       SIN COS TAN EXP ASIN ACOS ATAN
 %left '+' '-'
 %left '*' '/'
 %right '^'

@@ -1,0 +1,85 @@
+% -*- mode: LaTeX; coding: utf-8; -*-
+
+\documentclass[14pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[14pt]{extsizes}
+\usepackage{listings}
+\lstloadlanguages{bash,[ANSI]C}
+\lstset{language=[ANSI]C,
+  %frame=tbrl,
+  extendedchars=true,
+  numbers=left,
+}
+
+%\renewcommand{\lstlistingname}{Листинг \No}
+\renewcommand{\lstlistingname}{Листинг}
+
+% Для подчёркивания, например web-ссылок
+% \usepackage{ulem}
+\usepackage{url}
+% в начале каждого абзаца должен быть отступ
+\usepackage{indentfirst}
+
+% Полуторный интерлиньяж
+\linespread{1.3}
+\frenchspacing % Одинаковые промежутки между словами и предложениям
+
+% По идее не должны оставаться одиночные строки в начале и в конце странице
+\clubpenalty=2800
+\widowpenalty=2800
+
+% Чтобы не было точки после номера в списке литературы
+\makeatletter
+\renewcommand{\@biblabel}[1]{#1}
+\makeatother
+
+% сдвинуть шрифт
+% \textwidth=18cm
+% \topmargin=-2cm
+% \textheight=25cm
+% \hoffset=-2.5cm
+% Меняем поля страницы
+\usepackage{geometry}
+\geometry{left=2.5cm}
+\geometry{right=2cm}
+\geometry{top=2cm}
+\geometry{bottom=2cm} 
+
+\usepackage{title}
+
+% Эту проблему все таки следует решить!!!
+% % Приложение
+% \renewcommand\appendixname{Приложение}
+% \makeatletter
+% \def\redeflsection{\def\l@section{\@dottedtocline{1}{1.5em}{7.8em}}}
+% \renewcommand\appendix{\par
+%   \setcounter{section}{0}%
+%   \setcounter{subsection}{0}%
+%   \def\sectionname{\appendixname}%
+%   \addtocontents{toc}{\protect\redeflsection}
+%   \gdef\thesection{\appendixname\hspace{0.2cm}\@Alph\c@section}
+% }
+% \makeatother
+
+% \makeatletter
+% \renewcommand\appendix{\par
+% \setcounter{section}{0}%
+% \setcounter{subsection}{0}%
+% \gdef\thesection{\@Alph\c@section}}
+% \makeatother 
+
+% \makeatletter
+% \def\redeflsection{\def\l@section{\@dottedtocline{1}{1.5em}{7.8em}}}
+% \renewcommand\appendix{\par
+% \setcounter{section}{0}%
+% \setcounter{subsection}{0}%
+% \def\@chapapp{\appendixname}%
+% \addtocontents{toc}{\protect\redeflsection}
+% \def\thesection{\appendixname\hspace{0.2cm}\@arabic\c@section}}
+% \makeatother 
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End: 
